@@ -10,7 +10,12 @@ import img6 from "../../../assets/home/06.png";
 const Banner = () => {
   return (
     <div className="rounded-xl">
-      <Carousel showThumbs={false} infiniteLoop={true}>
+      <Carousel
+        showThumbs={false}
+        infiniteLoop={true}
+        showStatus={false}
+        autoPlay={true}
+      >
         <div>
           <img src={img1} />
         </div>
