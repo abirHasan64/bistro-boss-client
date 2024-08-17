@@ -1,0 +1,10 @@
+/* .featured-item{
+    background-image: url('../../../assets/home/featured.jpg');
+} */
+.featured-item {
+    background-image: url('../../../assets/home/featured.jpg');
+    background-color: rgba(0, 0, 0, 0.5); /* Adds a semi-transparent black overlay */
+    background-blend-mode: overlay; /* Blends the background color with the image */
+    background-size: cover; /* Ensures the background image covers the entire div */
+    background-position: center; /* Centers the background image */
+}
