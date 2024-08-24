@@ -30,7 +30,7 @@ import './Featured.css';
 const Featured = () => {
     return (
         <div className='featured-item bg-fixed py-16'>
-            <SectionTittle subHeading='Check it out' heading='Featured Item' />
+            <h2 className='text-white'><SectionTittle subHeading='Check it out' heading='Featured Item' /></h2>
             <div className='md:flex justify-center items-center py-20 px-36'>
                 <div>
                     <img className='rounded-md' src={featureImage} alt="Featured Item" />

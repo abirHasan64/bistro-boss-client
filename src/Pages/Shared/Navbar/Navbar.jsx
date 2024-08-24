@@ -18,6 +18,9 @@ const Navbar = () => {
       <li>
         <Link style={{color: 'white'}} to="/orderfood/salad">Order Food</Link>
       </li>
+      <li>
+        <Link style={{color: 'white'}} to="/login">Login</Link>
+      </li>
     </>
   );
   return (
