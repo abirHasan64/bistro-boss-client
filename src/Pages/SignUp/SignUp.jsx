@@ -1,6 +1,14 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 
 const SignUp = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => console.log(data);
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -13,7 +21,23 @@ const SignUp = () => {
           </p>
         </div>
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <form className="card-body">
+          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                placeholder="name"
+                {...register("name", { required: true })}
+                name="name"
+                className="input input-bordered"
+                required
+              />
+              {errors.name && (
+                <span className="text-red-600">Name is required</span>
+              )}
+            </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -21,9 +45,13 @@ const SignUp = () => {
               <input
                 type="email"
                 placeholder="email"
+                {...register("email", { required: true })}
                 className="input input-bordered"
                 required
               />
+              {errors.email && (
+                <span className="text-red-600">Email is required</span>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
@@ -32,9 +60,13 @@ const SignUp = () => {
               <input
                 type="password"
                 placeholder="password"
+                {...register("password", { required: true, minLength: 6 })}
                 className="input input-bordered"
                 required
               />
+              {errors.password?.type === 'required' && (
+                <span className="text-red-600">Password is required</span>
+              )}
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
                   Forgot password?
@@ -42,7 +74,7 @@ const SignUp = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Login</button>
+              <button className="btn btn-primary">Register</button>
             </div>
           </form>
         </div>

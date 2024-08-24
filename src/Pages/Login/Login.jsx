@@ -12,7 +12,7 @@ const Login = () => {
   const captchaRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
 
-  const {signIn, } = useContext(AuthContext)
+  const { signIn } = useContext(AuthContext);
   // Load the captcha engine and template
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -30,11 +30,10 @@ const Login = () => {
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    signIn(email, password)
-    .then(result => {
+    signIn(email, password).then((result) => {
       const user = result.user;
-      console.log(user)
-    })
+      console.log(user);
+    });
   };
   return (
     <div>
@@ -88,13 +87,13 @@ const Login = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder="captcha"
+                  placeholder="Type captcha here"
                   name="captcha"
                   ref={captchaRef}
                   className="input input-bordered"
                   required
                 />
-                <label className="label">
+                <label className="label mx-auto">
                   <LoadCanvasTemplate />
                 </label>
               </div>
@@ -110,7 +109,14 @@ const Login = () => {
                 />
               </div>
             </form>
-            <p><small>New here? <Link to='/signup'>Create an account</Link></small></p>
+            <p className="mx-auto mb-4">
+              <small>
+                New here?{" "}
+                <Link className="text-orange-500 font-bold" to="/signup">
+                  Create an account
+                </Link>
+              </small>
+            </p>
           </div>
         </div>
       </div>
