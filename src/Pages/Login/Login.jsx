@@ -9,7 +9,6 @@ import { AuthContext } from "../../Providers/AuthProviders";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const captchaRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
 
   const { signIn } = useContext(AuthContext);
@@ -17,8 +16,8 @@ const Login = () => {
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
-  const handleCaptcha = () => {
-    const user_captcha_value = captchaRef.current.value;
+  const handleCaptcha = (e) => {
+    const user_captcha_value = e.target.value;
     if (validateCaptcha(user_captcha_value)) {
       setDisabled(false);
     } else {
@@ -40,17 +39,12 @@ const Login = () => {
       <Helmet>
         <title>Bistro | Login</title>
       </Helmet>
-      <div className="hero bg-base-200 min-h-screen">
-        <div className="hero-content flex-col md:flex-row-reverse">
-          <div className="text-center md:w-1/2 lg:text-left">
+      <div className="hero bg-base-200 w-full min-h-screen">
+        <div className="hero-content flex-col">
+          <div className="text-center w-auto">
             <h1 className="text-5xl font-bold">Login now!</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
           </div>
-          <div className="card bg-base-100 md:w-1/2 max-w-sm shadow-2xl">
+          <div className="card bg-base-100 w-96 shadow-2xl">
             <form onSubmit={handleLogin} className="card-body">
               <div className="form-control">
                 <label className="label">
@@ -89,7 +83,7 @@ const Login = () => {
                   type="text"
                   placeholder="Type captcha here"
                   name="captcha"
-                  ref={captchaRef}
+                  onBlur={handleCaptcha}
                   className="input input-bordered"
                   required
                 />
@@ -97,9 +91,7 @@ const Login = () => {
                   <LoadCanvasTemplate />
                 </label>
               </div>
-              <button className="btn btn-primary" onClick={handleCaptcha}>
-                Validate
-              </button>
+
               <div className="form-control mt-6">
                 <input
                   disabled={disabled}
