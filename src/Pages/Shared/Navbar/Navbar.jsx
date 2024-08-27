@@ -6,15 +6,16 @@ import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  const handleLogout = () => { /*todo: logOut not working yet. fix it */
-  logOut()
+  const handleLogout = () => {
+    /*todo: logOut not working yet. fix it */
+    logOut()
       .then(() => {
         Swal.fire({
           position: "top-center",
           icon: "success",
           title: "You've successfully logged out",
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000,
         });
       })
       .catch((err) => console.log(err));
@@ -39,7 +40,9 @@ const Navbar = () => {
 
       {user ? (
         <>
-          <button onClick={handleLogout}>Logout</button>
+          <li className="p-0" onClick={handleLogout}>
+            <Link>Logout</Link>
+          </li>
         </>
       ) : (
         <>

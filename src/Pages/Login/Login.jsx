@@ -6,13 +6,15 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import { AuthContext } from "../../Providers/AuthProviders";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
-
   const { signIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   // Load the captcha engine and template
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -38,8 +40,9 @@ const Login = () => {
         icon: "success",
         title: "Successfully logged in",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1000,
       });
+      navigate(from, { replace: true });
     });
   };
   return (
