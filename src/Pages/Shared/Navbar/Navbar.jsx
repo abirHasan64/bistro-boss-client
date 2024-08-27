@@ -1,12 +1,22 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProviders";
+import toast, { Toaster } from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const handleLogout = () => { /*todo: logOut not working yet. fix it */
-    logout()
-      .then(() => {})
+  logOut()
+      .then(() => {
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "You've successfully logged out",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      })
       .catch((err) => console.log(err));
   };
   const navOptions = (

@@ -7,6 +7,7 @@ import {
 } from "react-simple-captcha";
 import { AuthContext } from "../../Providers/AuthProviders";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
@@ -32,6 +33,13 @@ const Login = () => {
     signIn(email, password).then((result) => {
       const user = result.user;
       console.log(user);
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Successfully logged in",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     });
   };
   return (
