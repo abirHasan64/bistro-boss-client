@@ -40,6 +40,7 @@ const Navbar = () => {
 
       {user ? (
         <>
+          <span>{user?.displayName}</span>
           <li className="p-0" onClick={handleLogout}>
             <Link>Logout</Link>
           </li>
