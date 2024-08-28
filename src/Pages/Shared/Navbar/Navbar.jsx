@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProviders";
-import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
+import { FaCartShopping } from "react-icons/fa6";
+import useCart from "../../../hooks/useCart";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [cart] = useCart();
   const handleLogout = () => {
-    /*todo: logOut not working yet. fix it */
     logOut()
       .then(() => {
         Swal.fire({
@@ -37,7 +38,14 @@ const Navbar = () => {
           Order Food
         </Link>
       </li>
-
+      <li>
+        <Link to="/">
+          <button className="btn">
+            <FaCartShopping />
+            <div className="badge badge-secondary">{cart?.length || 0}</div>
+          </button>
+        </Link>
+      </li>
       {user ? (
         <>
           <span>{user?.displayName}</span>
