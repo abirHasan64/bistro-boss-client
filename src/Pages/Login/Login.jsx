@@ -8,6 +8,7 @@ import {
 import { AuthContext } from "../../Providers/AuthProviders";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
@@ -112,14 +113,15 @@ const Login = () => {
                 />
               </div>
             </form>
-            <p className="mx-auto mb-4">
+            <span className="mx-auto mb-4">
               <small>
                 New here?{" "}
                 <Link className="text-orange-500 font-bold" to="/signup">
                   Create an account
                 </Link>
               </small>
-            </p>
+              <SocialLogin />
+            </span>
           </div>
         </div>
       </div>
