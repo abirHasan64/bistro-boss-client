@@ -3,8 +3,10 @@ import { NavLink, Outlet } from "react-router-dom";
 import { FaCartShopping, FaWallet } from "react-icons/fa6";
 import { FaHome, FaCalendarAlt } from "react-icons/fa";
 import { MdMenuBook, MdShoppingBag } from "react-icons/md";
+import useCart from "../hooks/useCart";
 
 const Dashboard = () => {
+  const [cart] = useCart();
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -15,7 +17,7 @@ const Dashboard = () => {
           htmlFor="my-drawer-2"
           className="btn btn-primary drawer-button lg:hidden"
         >
-          Open drawer
+          View Menu
         </label>
       </div>
 
@@ -46,9 +48,10 @@ const Dashboard = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard/mycart">
+            <NavLink className="flex" to="/dashboard/mycart">
               <FaCartShopping />
               My Cart
+              <span className="badge badge-secondary">+{cart?.length || 0}</span>
             </NavLink>
           </li>
           <div className="divider" />
@@ -69,7 +72,6 @@ const Dashboard = () => {
               Order Food
             </NavLink>
           </li>
-          
         </ul>
       </div>
     </div>
