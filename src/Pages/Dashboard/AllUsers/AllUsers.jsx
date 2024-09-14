@@ -2,16 +2,38 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { FaTrashCan, FaUserShield } from "react-icons/fa6";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import axios from "axios";
 
 const AllUsers = () => {
+  const [axiosSecure] = useAxiosSecure();
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users");
+      const res = await axiosSecure.get("http://localhost:5000/users");
       return res.json();
     },
   });
-  const handleMakeAdmin = (userId) => {};
+  const handleMakeAdmin = (user) => {
+    fetch(`http://localhost:5000/users/admin/${user._id}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${user.name} is an admin now`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+  };
   const handleDelete = (user) => {};
 
   return (
@@ -45,7 +67,7 @@ const AllUsers = () => {
                     "admin"
                   ) : (
                     <button
-                      onClick={() => handleMakeAdmin(user._id)}
+                      onClick={() => handleMakeAdmin(user)}
                       className="btn btn-ghost bg-orange-500 text-xl text-white "
                     >
                       <FaUserShield />

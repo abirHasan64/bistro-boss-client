@@ -1,14 +1,25 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { FaCartShopping, FaWallet } from "react-icons/fa6";
-import { FaHome, FaCalendarAlt, FaUtensils, FaBook, FaUsers, FaBars } from "react-icons/fa";
+import {
+  FaHome,
+  FaCalendarAlt,
+  FaUtensils,
+  FaBook,
+  FaUsers,
+  FaBars,
+} from "react-icons/fa";
 import { MdMenuBook, MdShoppingBag } from "react-icons/md";
 import useCart from "../hooks/useCart";
+import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
   const [cart] = useCart();
   // todo: load data from the server to have dynamic isAdmin based on data
-  const isAdmin = true;
+  const [isAdmin, isAdminLoading] = useAdmin();
+  if (isAdminLoading) {
+    return <div>Loading...</div>; // Or some loading indicator
+  }
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -47,23 +58,22 @@ const Dashboard = () => {
               </li>
               <li>
                 <NavLink to="/dashboard/payment">
-                <FaBars />
+                  <FaBars />
                   Manage Items
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/dashboard/payment">
-                <FaBook />
+                  <FaBook />
                   Manage bookings
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/dashboard/allusers">
-                <FaUsers />
+                  <FaUsers />
                   All Users
                 </NavLink>
               </li>
-              
             </>
           ) : (
             <>

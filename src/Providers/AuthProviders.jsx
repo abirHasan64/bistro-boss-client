@@ -10,6 +10,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -23,9 +24,25 @@ const AuthProviders = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const signIn = (email, password) => {
+  // const signIn = (email, password) => {
+  //   setLoading(true);
+  //   return signInWithEmailAndPassword(auth, email, password);
+  // };
+  const signIn = async (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
+    try {
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      // Fetch new JWT token after sign in
+      const { data } = await axios.post("http://localhost:5000/jwt", {
+        email: result.user.email,
+      });
+      localStorage.setItem("access-token", data.token);
+      setLoading(false); // Stop loading once token is set
+      return result; // Return the user credential
+    } catch (error) {
+      setLoading(false);
+      throw error; // Re-throw the error to be handled elsewhere
+    }
   };
 
   const signInWithGoogle = () => {
@@ -47,6 +64,16 @@ const AuthProviders = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      // get and set jwt token
+      if (currentUser) {
+        axios
+          .post("http://localhost:5000/jwt", { email: currentUser.email })
+          .then((data) => {
+            localStorage.setItem("access-token", data.data.token);
+          });
+      } else {
+        localStorage.removeItem("access-token");
+      }
       setLoading(false);
     });
     return () => {

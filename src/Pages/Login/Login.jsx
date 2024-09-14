@@ -35,6 +35,7 @@ const Login = () => {
     const password = form.password.value;
     signIn(email, password).then((result) => {
       const user = result.user;
+      
       Swal.fire({
         position: "top-center",
         icon: "success",
