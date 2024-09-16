@@ -5,7 +5,7 @@ import useAuth from "./useAuth";
 const useCart = () => {
   const { user, loading } = useAuth();
   const [axiosSecure] = useAxiosSecure();
-  const { data: cart = [], refetch } = useQuery({
+  const { data: cart = [], refetch, isLoading } = useQuery({
     queryKey: ["carts", user?.email],
     enabled: !!user?.email && !loading, // Only run query when user is authenticated
     queryFn: async () => {
@@ -13,6 +13,6 @@ const useCart = () => {
       return res.data;
     },
   });
-  return [cart, refetch];
+  return [cart, refetch, isLoading];
 };
 export default useCart;

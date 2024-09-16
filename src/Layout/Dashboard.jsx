@@ -57,7 +57,7 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/payment">
+                <NavLink to="/dashboard/manageItems">
                   <FaBars />
                   Manage Items
                 </NavLink>
@@ -72,6 +72,15 @@ const Dashboard = () => {
                 <NavLink to="/dashboard/allusers">
                   <FaUsers />
                   All Users
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="flex" to="/dashboard/mycart">
+                  <FaCartShopping />
+                  My Cart
+                  <span className="badge badge-secondary">
+                    +{cart?.length || 0}
+                  </span>
                 </NavLink>
               </li>
             </>

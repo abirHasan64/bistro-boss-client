@@ -34,7 +34,7 @@ const AllUsers = () => {
         }
       });
   };
-  const handleDelete = (user) => {};
+  const handleDelete = (user) => {}; // TODO: implement delete in add users
 
   return (
     <div className="w-full">

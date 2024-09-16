@@ -37,11 +37,9 @@ const AddItem = () => {
             recipe,
             image: imgURL,
           };
-          console.log(newItem);
 
           // using axiosSecure to ensure route security and posting newItem
           axiosSecure.post("/menu", newItem).then((data) => {
-            console.log("after posting  item:-", data.data);
             if (data.data.insertedId) {
               reset(); // reset form after successful submission
               Swal.fire({
